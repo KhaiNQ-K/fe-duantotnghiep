@@ -8,6 +8,7 @@ import Account from 'views/Account';
 import Comment from 'views/Comment';
 import DentistFeature from 'components/Admin/Dentists';
 import CustomerFeature from 'components/Admin/Customers';
+import Comments from 'views/Comments';
 
 let routerAdmin = [
   // {
@@ -70,7 +71,7 @@ let routerAdmin = [
     path: '/comment',
     name: 'Quản lý bình luận',
     icon: 'design-2_ruler-pencil',
-    component: Comment,
+    component: Comments,
     layout: '/admin',
   },
   {

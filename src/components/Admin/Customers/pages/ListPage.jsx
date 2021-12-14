@@ -78,12 +78,6 @@ function ListPage(props) {
 
       <Box className={classes.titleContainer}>
         <Typography variant="h4">Quản lý khách hàng</Typography>
-
-        {/* <Link to={`${match.url}/add`} style={{ textDecoration: 'none' }}>
-          <Button variant="contained" color="primary">
-            Add new customer
-          </Button>
-        </Link> */}
       </Box>
 
       {/* <Box mb={3}>

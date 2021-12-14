@@ -14,6 +14,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { FormGroup, Input, Card, CardHeader, Row, Col } from 'reactstrap';
 import PanelHeader from 'commons/PanelHeader/PanelHeader';
 import commentApi from 'api/commentApi';
+import toastifyAlert from 'utils/toastify';
+import { Checkbox } from '@mui/material';
 
 const columns = [
   { id: 'id', label: 'Id', minWidth: 50, align: 'center' },
@@ -69,7 +71,7 @@ function Comment() {
 
   const [listComment, setListComment] = useState([initValue]);
   const [active, setActive] = useState(false);
-
+  console.log(listComment);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -94,10 +96,25 @@ function Comment() {
 
   const hanldeOnChange = (event) => {
     event.preventDefault();
-    const { name, value } = event.target;
-    setActive(value);
+    const { name, checked } = event.target;
+    setActive(checked);
   };
-
+  const onSubmit = (comment) => {
+    const newComment = { ...comment, deleteAt: checked };
+    commentApi
+      .update(comment.id, newComment)
+      .then((res) => {
+        toastifyAlert.success('Cập nhật thành công!');
+        const { data } = res;
+        setListComment(
+          listComment.map((value, index) => {
+            return comment.id == value.id ? data : value;
+          })
+        );
+      })
+      .catch((error) => console.log(error));
+  };
+  const update = (comment) => {};
   return (
     <>
       <PanelHeader size="sm" />
@@ -156,11 +173,10 @@ function Comment() {
                                       } else if (column.id == 'deleteAt') {
                                         return (
                                           <TableCell key={column.id} align={column.align}>
-                                            <input
-                                              name="active"
-                                              type="checkbox"
-                                              checked={value}
-                                              onChange={(e) => setActive(e.target.value)}
+                                            <Checkbox
+                                              onChange={(e) => hanldeOnChange(e)}
+                                              defaultChecked={value}
+                                              name="deleteAt"
                                             />
                                           </TableCell>
                                         );
@@ -175,7 +191,11 @@ function Comment() {
                                       }
                                     })}
                                     <TableCell>
-                                      <Button variant="contained" color="info">
+                                      <Button
+                                        variant="contained"
+                                        color="info"
+                                        onClick={(comment) => onSubmit(comment)}
+                                      >
                                         <EditIcon />
                                         Cập nhật
                                       </Button>

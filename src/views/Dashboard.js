@@ -28,62 +28,8 @@ import {
 
 function Dashboard() {
   const [charReport, setChartReport] = useState({});
-  const [orderReport, setOrderReport] = useState({});
-  const options = {
-    layout: {
-      padding: {
-        left: 20,
-        right: 20,
-        top: 0,
-        bottom: 0,
-      },
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltips: {
-        backgroundColor: '#fff',
-        titleFontColor: '#333',
-        bodyFontColor: '#666',
-        bodySpacing: 4,
-        xPadding: 12,
-        mode: 'nearest',
-        intersect: 0,
-        position: 'nearest',
-      },
-    },
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        ticks: {
-          fontColor: 'rgba(255,255,255,0.4)',
-          fontStyle: 'bold',
-          beginAtZero: true,
-          maxTicksLimit: 6,
-          padding: 10,
-        },
-        grid: {
-          drawTicks: true,
-          drawBorder: false,
-          display: true,
-          color: 'rgba(255,255,255,0.1)',
-          zeroLineColor: 'transparent',
-        },
-      },
-      x: {
-        grid: {
-          display: false,
-          color: 'rgba(255,255,255,0.1)',
-        },
-        ticks: {
-          padding: 10,
-          fontColor: 'rgba(255,255,255,0.4)',
-          fontStyle: 'bold',
-        },
-      },
-    },
-  };
+  const [chartCustomer, setChartCustomer] = useState({});
+  const [chartDentist, setChartDentist] = useState({});
   //doanh thu
   const charReportFunction = async () => {
     let total = [];
@@ -98,10 +44,81 @@ function Dashboard() {
         labels: month,
         datasets: [
           {
-            label: 'Data',
+            label: 'Tổng tiền',
             borderColor: '#FFFFFF',
             pointBorderColor: '#FFFFFF',
             pointBackgroundColor: '#2c2c2c',
+            pointHoverBackgroundColor: '#2c2c2c',
+            pointHoverBorderColor: '#FFFFFF',
+            pointBorderWidth: 1,
+            pointHoverRadius: 7,
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            tension: 0.4,
+            data: total,
+          },
+        ],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // customer chart
+  const charTop5Cusomer = async () => {
+    let total = [];
+    let name = [];
+    try {
+      const res = await reportApi.reportCustomer();
+      const topData = [...res.data].sort((a, b) => b.tongSoDon - a.tongSoDon).slice(0, 5);
+      for (const data of topData) {
+        total.push(parseInt(data.tongSoDon));
+        name.push(data.tenBacSi);
+      }
+      setChartCustomer({
+        labels: name,
+        datasets: [
+          {
+            label: 'Tổng số đơn',
+            borderColor: '#18ce0f',
+            pointBorderColor: '#FFF',
+            pointBackgroundColor: '#18ce0f',
+            pointBorderWidth: 2,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 1,
+            pointRadius: 4,
+            fill: true,
+            backgroundColor: 'rgba(128, 182, 244, 0)',
+            borderWidth: 2,
+            tension: 0.4,
+            data: total,
+          },
+        ],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const charTop5Dentist = async () => {
+    let total = [];
+    let name = [];
+    try {
+      const res = await reportApi.reportDentist();
+      const topData = [...res.data].sort((a, b) => b.solandat - a.solandat).slice(0, 5);
+      for (const data of topData) {
+        total.push(parseInt(data.solandat));
+        name.push(data.fullname);
+      }
+      setChartDentist({
+        labels: name,
+        datasets: [
+          {
+            label: 'Số lần đặt',
+            borderColor: '#2CA8FF',
+            pointBorderColor: '#FFF',
+            pointBackgroundColor: '#2CA8FF',
             pointHoverBackgroundColor: '#2c2c2c',
             pointHoverBorderColor: '#FFFFFF',
             pointBorderWidth: 1,
@@ -123,13 +140,29 @@ function Dashboard() {
   //order
   useEffect(() => {
     charReportFunction();
+    charTop5Cusomer();
+    charTop5Dentist();
+    const fetcht = async () => {
+      const data1 = await reportApi.reportService();
+      const data2 = await reportApi.reportCustomer();
+      const data3 = await reportApi.reportDentist();
+      const data4 = await reportApi.reportBooking();
+      const data5 = await reportApi.reportDoanhThu();
+      const topData = [...data2.data].sort((a, b) => b.tongSoDon - a.tongSoDon).slice(0, 5);
+      console.log('customer', topData);
+      console.log('service', data1);
+      console.log('dentist', data3);
+      console.log('booking', data4);
+      console.log('doanh thu', data5);
+    };
+    fetcht();
   }, []);
   return (
     <>
       <PanelHeader
         style={{ position: 'absolute' }}
         size="lg"
-        content={<Line data={charReport} options={options} />}
+        content={<Line data={charReport} options={dashboardPanelChart.options} />}
       />
 
       <h5 style={{ position: 'absolute', marginTop: '-340px', color: 'white', marginLeft: '26px' }}>
@@ -161,15 +194,12 @@ function Dashboard() {
           <Col xs={12} md={4}>
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">Tổng số khách hàng</h5>
+                <h5 className="card-category">Top khách hàng</h5>
                 {/* <CardTitle tag="h4">All products</CardTitle> */}
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <Line
-                    data={dashboardAllProductsChart.data}
-                    options={dashboardAllProductsChart.options}
-                  />
+                  <Line data={chartDentist} options={dashboardAllProductsChart.options} />
                 </div>
               </CardBody>
               <CardFooter>
@@ -182,15 +212,12 @@ function Dashboard() {
           <Col xs={12} md={4}>
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">Tổng số nha sỹ</h5>
+                <h5 className="card-category">Top nha sĩ</h5>
                 {/* <CardTitle tag="h4">24 Hours Performance</CardTitle> */}
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <Bar
-                    data={dashboard24HoursPerformanceChart.data}
-                    options={dashboard24HoursPerformanceChart.options}
-                  />
+                  <Bar data={chartCustomer} options={dashboard24HoursPerformanceChart.options} />
                 </div>
               </CardBody>
               <CardFooter>

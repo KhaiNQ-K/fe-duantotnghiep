@@ -4,7 +4,6 @@ import SaveIcon from '@mui/icons-material/Save';
 import { Alert } from '@mui/lab';
 import { Button, CircularProgress, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { Box } from '@mui/system';
-import axiosInstance from 'api/axiosInstance';
 import fileApi from 'api/fileApi';
 import { communesAction, selectCommunesOptions } from 'app/communes/communesSlice';
 import { districtAction, selectDistrictOptions } from 'app/districts/districtSlice';
@@ -16,6 +15,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 import * as yup from 'yup';
 
@@ -52,6 +52,8 @@ function DentistForm({ initialValues, onSubmit }) {
     ...initialValues,
     communes: initialValues.communes.id,
   };
+  const match = useRouteMatch();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [provinceId, setProvinceId] = useState(initialValues.communes.districts.provinces.id);
   const [districtId, setDistrictId] = useState(initialValues.communes.districts.id);
@@ -123,7 +125,9 @@ function DentistForm({ initialValues, onSubmit }) {
       });
     }
   };
-
+  const handleCancelEdit = () => {
+    history.push(match.url);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -225,7 +229,13 @@ function DentistForm({ initialValues, onSubmit }) {
             {isSubmitting && <CircularProgress size={16} color="primary" />}
             &nbsp;Update
           </Button>
-          <Button type="button" variant="contained" color="primary" disabled={isSubmitting}>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+            onClick={handleCancelEdit}
+          >
             {isSubmitting && <CircularProgress size={16} color="primary" />}
             <CloseIcon />
             Cancel

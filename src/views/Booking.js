@@ -4,7 +4,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import {Card, CardHeader, Row, Col } from 'reactstrap';
+import { Card, CardHeader, Row, Col } from 'reactstrap';
 import PanelHeader from 'commons/PanelHeader/PanelHeader';
 import BookingForm from 'components/Admin/Booking/BookingForm';
 import BookingList from 'components/Admin/Booking/BookingList';
@@ -30,7 +30,6 @@ function Booking() {
       .then((response) => {
         const { data } = response;
         setListBooking(data);
-        console.log(data);
       })
       .catch((error) => {
         console.log(error, error.response);
@@ -38,7 +37,6 @@ function Booking() {
   }, []);
 
   const handleChange = (event, newValue, data) => {
-    console.log(data);
     setFormData(data);
     setValue(newValue);
   };
