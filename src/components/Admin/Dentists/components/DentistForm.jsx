@@ -133,7 +133,7 @@ function DentistForm({ initialValues, onSubmit }) {
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Row>
           <Col>
-            <InputField label="Full name" control={control} name="fullName" />
+            <InputField label="Họ và tên" control={control} name="fullName" />
             <InputField label="CCCD/CMT" control={control} name="cccd" />
             <InputField label="Số điện thoại" control={control} name="telephone" />
             <DateField name="birthday" label="Ngày sinh" control={control} />
@@ -227,7 +227,7 @@ function DentistForm({ initialValues, onSubmit }) {
           >
             <SaveIcon />
             {isSubmitting && <CircularProgress size={16} color="primary" />}
-            &nbsp;Update
+            &nbsp;Sửa
           </Button>
           <Button
             type="button"
@@ -238,7 +238,7 @@ function DentistForm({ initialValues, onSubmit }) {
           >
             {isSubmitting && <CircularProgress size={16} color="primary" />}
             <CloseIcon />
-            Cancel
+            Huỷ
           </Button>
         </Box>
       </form>

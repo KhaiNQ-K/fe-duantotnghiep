@@ -50,7 +50,7 @@ function ListPage(props) {
     try {
       // Remove student API
       await customerApi.delete(dentist?.id || '');
-      toast.success('Remove dentist successfully!');
+      toast.success('Xoá người dùng thành công!');
       // Trigger to re-fetch student list with current filter
       const newCustomerList = customerList.filter((val) => {
         return val.id != dentist.id;
@@ -101,7 +101,6 @@ function ListPage(props) {
           count={Math.ceil(customerList.length / rowsPerPage)}
           page={page}
           onChange={handlePageChange}
-          onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Box>
     </Box>

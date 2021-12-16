@@ -11,19 +11,22 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login(state, action) {
-      console.log('123');
+      console.log('logging');
       state.logging = true;
     },
     loginSuccess(state, action) {
+      console.log('login success');
       state.isLoggedIn = true;
       state.logging = false;
       state.currentUser = action.payload;
     },
     loginFailed(state, action) {
+      console.log('login failed');
       state.logging = false;
     },
     logout(state) {
       state.isLoggedIn = false;
+      state.currentUser = undefined;
     },
   },
 });

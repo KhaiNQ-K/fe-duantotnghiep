@@ -44,10 +44,10 @@ function DentistTable({ dentistList, onEdit, onRemove }) {
             <TableRow>
               <TableCell>ID</TableCell>
               <TableCell></TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Gender</TableCell>
-              <TableCell>Address</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell>Tên</TableCell>
+              <TableCell>Giới tính</TableCell>
+              <TableCell>Địa chỉ</TableCell>
+              <TableCell align="right">Thao tác</TableCell>
             </TableRow>
           </TableHead>
 
@@ -106,8 +106,8 @@ function DentistTable({ dentistList, onEdit, onRemove }) {
         <DialogTitle id="alert-dialog-title">Remove a student?</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure to remove student named "{selectedDentist?.name}". <br />
-            This action can&apos;t be undo.
+            Bạn có chắc chắn muốn xoá nha sĩ này "{selectedDentist?.name}". <br />
+            Hành động này &apos;không thể quay lại
           </DialogContentText>
         </DialogContent>
         <DialogActions>

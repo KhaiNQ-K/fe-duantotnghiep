@@ -4,22 +4,23 @@ import 'assets/css/demo.css';
 import 'assets/scss/now-ui-dashboard.scss?v1.5.0';
 import 'bootstrap/dist/css/bootstrap.css';
 import Login from 'components/Admin/Auth';
+import { createBrowserHistory } from 'history';
 import Admin from 'layouts/Admin';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-
+import history from './utils/history';
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
         <Route path="/admin" render={(props) => <Admin {...props} />} />
         <Route path="/login" component={Login} />
         <Redirect to="/admin" />
       </Switch>
-    </BrowserRouter>
+    </Router>
     ,
   </Provider>,
   document.getElementById('root')

@@ -1,4 +1,4 @@
-import { authSaga } from 'components/Admin/Auth/authSaga';
+import authSaga from 'components/Admin/Auth/authSaga';
 import customerSaga from 'components/Admin/Customers/CustomerSaga';
 import dentistSaga from 'components/Admin/Dentists/DentistSaga';
 import { all } from 'redux-saga/effects';

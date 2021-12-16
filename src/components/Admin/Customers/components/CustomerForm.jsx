@@ -128,7 +128,7 @@ function CustomerForm({ initialValues, onSubmit }) {
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Row>
           <Col>
-            <InputField label="Full name" control={control} name="fullname" />
+            <InputField label="Họ và tên" control={control} name="fullname" />
             <InputField label="Số điện thoại" control={control} name="telephone" />
             <DateField name="birthday" label="Ngày sinh" control={control} />
             <FormControl>

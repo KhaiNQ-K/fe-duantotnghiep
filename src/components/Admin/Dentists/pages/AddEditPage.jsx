@@ -53,7 +53,7 @@ function AddEditPage(props) {
         console.log(error);
       }
     }
-    toastifyAlert.success('Save student successfully!');
+    toastifyAlert.success('Sửa thông tin nha sĩ thành công!');
 
     // // Redirect back to dentist list
     history.push('/admin/dentist');
@@ -62,11 +62,11 @@ function AddEditPage(props) {
     <Box>
       <Link to="/admin/dentist">
         <Typography variant="caption" style={{ display: 'flex', alignItems: 'center' }}>
-          <ChevronLeft /> Back to dentist list
+          <ChevronLeft /> Trở về trang danh sách nha sĩ
         </Typography>
       </Link>
 
-      <Typography variant="h4">{isEdit ? 'Update dentist info' : 'Add new student'}</Typography>
+      <Typography variant="h4">{isEdit ? 'Sửa thông tin nha sĩ' : 'Add new student'}</Typography>
 
       {(!isEdit || Boolean(dentist)) && (
         <Box mt={3}>

@@ -21,6 +21,7 @@
     "chart.js": "3.2.1",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.9",
+    "history": "4.10.1",
     "jquery": "3.6.0",
     "moment": "^2.29.1",
     "node-sass": "6.0.0",

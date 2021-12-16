@@ -6,7 +6,6 @@ import LoginPage from './pages/LoginForm';
 function Login(props) {
   const dispatch = useDispatch();
   const handleSubmit = (values) => {
-    console.log(values);
     dispatch(authActions.login(values));
   };
   return (

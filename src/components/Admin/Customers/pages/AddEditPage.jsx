@@ -53,7 +53,7 @@ function AddEditPage(props) {
         console.log(error);
       }
     }
-    toastifyAlert.success('Save customer successfully!');
+    toastifyAlert.success('Sửa thông tin người dùng thành công!');
 
     // // Redirect back to dentist list
     history.push('/admin/customer');
@@ -62,10 +62,10 @@ function AddEditPage(props) {
     <Box>
       <Link to="/admin/customer">
         <Typography variant="caption" style={{ display: 'flex', alignItems: 'center' }}>
-          <ChevronLeft /> Back to customer list
+          <ChevronLeft /> Trở về trang danh sách người dùng
         </Typography>
       </Link>
-      <Typography variant="h4">{isEdit ? 'Update customer info' : 'Add new customer'}</Typography>
+      <Typography variant="h4">{isEdit ? 'Sửa thông tin người dùng' : 'Add new customer'}</Typography>
       {(!isEdit || Boolean(customer)) && (
         <Box mt={3}>
           <CustomerForm initialValues={initialValues} onSubmit={handleCustomerFormSubmit} />

@@ -58,7 +58,7 @@ function ListPage(props) {
     try {
       // Remove student API
       await dentistApi.remove(dentist?.id || '');
-      toast.success('Remove dentist successfully!');
+      toast.success('Xoá bác sĩ thành công!');
       // Trigger to re-fetch student list with current filter
       const newDentistList = dentistList.filter((val) => {
         return val.id != dentist.id;
@@ -80,19 +80,6 @@ function ListPage(props) {
     await scheduletimeApi.add();
     toastifyAlert.success('Tạo lịch thành công!');
   };
-  const handleFilterChange = (newFilter) => {
-    // if (newFilter.province != null) {
-    //   if (newFilter.province == 'all') {
-    //     dispatch(dentistAction.fetchDentistList());
-    //   } else {
-    //     const newDentistList = dentistList.filter((val) => {
-    //       return val.communes.districts.provinces.id == newFilter.province;
-    //     });
-    //     dispatch(dentistAction.setFilter(newDentistList));
-    //   }
-    // }
-  };
-  const handleSearchChange = () => {};
   //get current dentist
   const indexOfLastDentist = page * rowsPerPage;
   const indexOfFirstDentist = indexOfLastDentist - rowsPerPage;
@@ -103,23 +90,8 @@ function ListPage(props) {
 
       <Box className={classes.titleContainer}>
         <Typography variant="h4">Quản lý nha sĩ</Typography>
-
-        {/* <Link to={`${match.url}/add`} style={{ textDecoration: 'none' }}>
-          <Button variant="contained" color="primary">
-            Add new dentist
-          </Button>
-        </Link> */}
         <Button onClick={handleClickScheduleTime}>Tạo lịch làm việc cho nha sĩ</Button>
       </Box>
-
-      {/* <Box mb={3}>
-        <DentistFilters
-          filter={filter}
-          provinceList={provinceList}
-          onChange={handleFilterChange}
-          onSearchChange={handleSearchChange}
-        />
-      </Box> */}
 
       <DentistTable
         dentistList={currentDentist}
@@ -135,8 +107,6 @@ function ListPage(props) {
           count={Math.ceil(dentistList.length / rowsPerPage)}
           page={page}
           onChange={handlePageChange}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPage={rowsPerPage}
         />
       </Box>
     </Box>

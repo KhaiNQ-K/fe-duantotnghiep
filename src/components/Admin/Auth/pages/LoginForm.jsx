@@ -21,6 +21,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSelector } from 'react-redux';
 import { selectIsLogging } from '../authSlice';
+import history from 'utils/history';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -39,7 +40,7 @@ const schema = yup.object().shape({
 const theme = createTheme();
 function LoginPage({ onSubmit }) {
   const isLogging = useSelector(selectIsLogging);
-
+  console.log(isLogging);
   const initialValue = {
     email: '',
     password: '',
@@ -50,6 +51,7 @@ function LoginPage({ onSubmit }) {
     resolver: yupResolver(schema),
   });
   const handleLoginSubmit = async (data) => {
+    if (Boolean(localStorage.getItem('access_token'))) return;
     await onSubmit?.(data);
   };
   return (

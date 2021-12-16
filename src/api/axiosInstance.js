@@ -1,6 +1,6 @@
 import axios from 'axios';
 // const baseURL = 'http://pure-stream-96271.herokuapp.com/api/v1';
-const baseURL = 'http://localhost:8080/api/v1/dentists';
+const baseURL = 'http://localhost:8080/api/v1';
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:8080/api/v1',
   headers: {
