@@ -12,16 +12,16 @@ import { Provider } from 'react-redux';
 import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import history from './utils/history';
+import PrivateRoute from 'commons/PrivateRoute';
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
-        <Route path="/admin" render={(props) => <Admin {...props} />} />
+        <PrivateRoute path="/admin" render={(props) => <Admin {...props} />} />
         <Route path="/login" component={Login} />
         <Redirect to="/admin" />
       </Switch>
     </Router>
-    ,
   </Provider>,
   document.getElementById('root')
 );

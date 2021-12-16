@@ -100,22 +100,55 @@ function Dashboard() {
       console.log(error);
     }
   };
-
+  const charKHDatLich = async () => {
+    let thang = [];
+    let sldl = [];
+    try {
+      const res = await reportApi.reportDaDatLich();
+      for (const data of res.data) {
+        sldl.push(parseInt(data.sldl));
+        thang.push(data.thang);
+      }
+      setChartDentist({
+        labels: thang,
+        datasets: [
+          {
+            label: 'Số bệnh nhân đã khám',
+            borderColor: '#2CA8FF',
+            pointBorderColor: '#FFF',
+            pointBackgroundColor: '#2CA8FF',
+            pointHoverBackgroundColor: '#2c2c2c',
+            pointHoverBorderColor: '#FFFFFF',
+            pointBorderWidth: 1,
+            pointHoverRadius: 7,
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            fill: true,
+            borderWidth: 2,
+            tension: 0.4,
+            data: sldl,
+          },
+        ],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const charTop5Dentist = async () => {
     let total = [];
     let name = [];
     try {
-      const res = await reportApi.reportDentist();
-      const topData = [...res.data].sort((a, b) => b.solandat - a.solandat).slice(0, 5);
+      const res = await reportApi.reportTopBS();
+      const topData = [...res.data].sort((a, b) => b.sbn - a.sbn).slice(0, 5);
       for (const data of topData) {
-        total.push(parseInt(data.solandat));
-        name.push(data.fullname);
+        total.push(parseInt(data.sbn));
+        name.push(data.nameDentist);
       }
       setChartDentist({
         labels: name,
         datasets: [
           {
-            label: 'Số lần đặt',
+            label: 'Số bệnh nhân đã khám',
             borderColor: '#2CA8FF',
             pointBorderColor: '#FFF',
             pointBackgroundColor: '#2CA8FF',
@@ -142,6 +175,7 @@ function Dashboard() {
     charReportFunction();
     charTop5Cusomer();
     charTop5Dentist();
+    charKHDatLich();
     const fetcht = async () => {
       const data1 = await reportApi.reportService();
       const data2 = await reportApi.reportCustomer();
