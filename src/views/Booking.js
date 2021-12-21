@@ -11,6 +11,7 @@ import BookingList from 'components/Admin/Booking/BookingList';
 import bookingApi from 'api/bookingApi';
 
 function Booking() {
+
   const initValue = {
     id: '',
     dentistProfile: '',

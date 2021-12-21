@@ -36,7 +36,6 @@ const VoucherForm = ({ handleChange, formData, setFormData, listVoucher, setList
     formState: { errors },
   } = useForm();
 
-
   const hanldeOnChange = (event) => {
     event.preventDefault();
     setOnchage(true);
@@ -49,11 +48,16 @@ const VoucherForm = ({ handleChange, formData, setFormData, listVoucher, setList
   };
 
   const sale = [
+    { value: 5, name: '5%' },
+    { value: 10, name: '10%' },
     { value: 15, name: '15%' },
+    { value: 20, name: '20%' },
+    { value: 25, name: '25%' },
+    { value: 30, name: '30%' },
     { value: 35, name: '35%' },
+    { value: 40, name: '40%' },
+    { value: 45, name: '45%' },
     { value: 50, name: '50%' },
-    { value: 65, name: '65%' },
-    { value: 80, name: '80%' },
   ];
 
   const submitForm = (e) => {
@@ -212,13 +216,27 @@ const VoucherForm = ({ handleChange, formData, setFormData, listVoucher, setList
             {/* </FormGroup> */}
           </Col>
         </Row>
-        
+
         <Row>
           <Col className="px-1" md="4">
-              <img src={selectedImage != null ? URL.createObjectURL(selectedImage) : `http://localhost:8080/api/v1/files/download/image?filename=${formData.image}`} style={{border: '1px solid #dddddd', minWidth: '100%', width: '100%', height: '250px', marginTop: '0.5rem', borderRadius: '10px'}} />
+            <img
+              src={
+                selectedImage != null
+                  ? URL.createObjectURL(selectedImage)
+                  : `http://localhost:8080/api/v1/files/download/image?filename=${formData.image}`
+              }
+              style={{
+                border: '1px solid #dddddd',
+                minWidth: '100%',
+                width: '100%',
+                height: '250px',
+                marginTop: '0.5rem',
+                borderRadius: '10px',
+              }}
+            />
           </Col>
         </Row>
-        
+
         <Row>
           <Col className="px-1" md="12">
             <FormGroup>

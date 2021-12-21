@@ -1,14 +1,11 @@
-import Voucher from 'views/Voucher';
-import Service from 'views/Service';
-import Dentist from 'views/Dentist';
-import Customer from 'views/Customer';
-import Post from 'views/Post';
-import Dashboard from 'views/Dashboard';
-import Account from 'views/Account';
-import Comment from 'views/Comment';
-import DentistFeature from 'components/Admin/Dentists';
 import CustomerFeature from 'components/Admin/Customers';
+import DentistFeature from 'components/Admin/Dentists';
+import Dashboard from 'components/Dashboard';
+import Account from 'views/Account';
 import Comments from 'views/Comments';
+import Post from 'views/Post';
+import Service from 'views/Service';
+import Voucher from 'views/Voucher';
 
 let routerAdmin = [
   // {

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CustomerTable({ customerList, onEdit, onRemove }) {
+function CustomerTable({ customerList, onEdit, onRemove, onAddVoucher }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState({});
@@ -43,23 +43,23 @@ function CustomerTable({ customerList, onEdit, onRemove }) {
         <Table className={classes.table} size="small" aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
+              <TableCell align="center"> ID</TableCell>
               <TableCell></TableCell>
-              <TableCell>Tên</TableCell>
-              <TableCell>Giới tính</TableCell>
-              <TableCell>Địa chỉ</TableCell>
-              <TableCell align="right">Thao tác</TableCell>
+              <TableCell align="center">Tên</TableCell>
+              <TableCell align="center">Giới tính</TableCell>
+              <TableCell align="center">Địa chỉ</TableCell>
+              <TableCell align="center">Thao tác</TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
             {customerList.map((customer) => (
               <TableRow key={customer.id}>
-                <TableCell>{customer.id}</TableCell>
-                <TableCell>
+                <TableCell align="center">{customer.id}</TableCell>
+                <TableCell align="center">
                   {
                     <img
-                      style={{ width: '150px', height: '100px' }}
+                      style={{ width: '100px', height: '100px' }}
                       src={
                         'http://localhost:8080/api/v1/files/download/image?filename=' +
                         customer.image
@@ -68,31 +68,38 @@ function CustomerTable({ customerList, onEdit, onRemove }) {
                     />
                   }
                 </TableCell>
-                <TableCell>{customer.fullname}</TableCell>
-                <TableCell>{customer.gender ? 'Nam' : 'Nữ'}</TableCell>
-                <TableCell>
+                <TableCell align="center">{customer.fullname}</TableCell>
+                <TableCell align="center">{customer.gender ? 'Nam' : 'Nữ'}</TableCell>
+                <TableCell align="center">
                   {customer.communes.name +
                     ' ' +
                     customer.communes.districts.name +
                     ' ' +
                     customer.communes.districts.provinces.name}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="center">
                   <Button
                     size="small"
                     className={classes.edit}
                     color="primary"
                     onClick={() => onEdit?.(customer)}
                   >
-                    Edit
+                    Sửa
                   </Button>
-
+                  <Button
+                    size="small"
+                    className={classes.edit}
+                    color="primary"
+                    onClick={() => onAddVoucher?.(customer)}
+                  >
+                    Tặng voucher
+                  </Button>
                   <Button
                     size="small"
                     color="secondary"
                     onClick={() => handleRemoveClick(customer)}
                   >
-                    Remove
+                    Xoá
                   </Button>
                 </TableCell>
               </TableRow>
@@ -108,11 +115,11 @@ function CustomerTable({ customerList, onEdit, onRemove }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Remove a student?</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Xoá người dùng?</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Bạn có muốn xoá người dùng này? "{selectedCustomer?.fullname}". <br />
-           Hành động này &apos;không thể quay lại.
+            Hành động này &apos;không thể quay lại.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -122,10 +129,10 @@ function CustomerTable({ customerList, onEdit, onRemove }) {
             variant="contained"
             autoFocus
           >
-            Remove
+            Xóa
           </Button>
           <Button onClick={handleClose} color="default" variant="outlined">
-            Cancel
+            Hủy
           </Button>
         </DialogActions>
       </Dialog>

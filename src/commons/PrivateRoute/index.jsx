@@ -5,10 +5,9 @@ import { Redirect, Route } from 'react-router-dom';
 
 function PrivateRoute(props) {
   const isLoggedIn = Boolean(localStorage.getItem('access_token'));
-  const currentUser = useSelector(selectCurrentUser);
-  const isAdmin = currentUser?.roles.rolesId;
+  const role = localStorage.getItem('role');
 
-  if (isLoggedIn && isAdmin === 'ROLE_ADMIN') return <Route {...props} />;
+  if (isLoggedIn && role === 'ROLE_ADMIN') return <Route {...props} />;
   return <Redirect to="/login" />;
 }
 

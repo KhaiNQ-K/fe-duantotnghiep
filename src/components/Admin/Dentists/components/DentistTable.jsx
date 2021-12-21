@@ -42,20 +42,20 @@ function DentistTable({ dentistList, onEdit, onRemove }) {
         <Table className={classes.table} size="small" aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell></TableCell>
-              <TableCell>Tên</TableCell>
-              <TableCell>Giới tính</TableCell>
-              <TableCell>Địa chỉ</TableCell>
-              <TableCell align="right">Thao tác</TableCell>
+              <TableCell align="center">ID</TableCell>
+              <TableCell align="center"></TableCell>
+              <TableCell align="center">Tên</TableCell>
+              <TableCell align="center">Giới tính</TableCell>
+              <TableCell align="center">Địa chỉ</TableCell>
+              <TableCell align="center">Thao tác</TableCell>
             </TableRow>
           </TableHead>
 
           <TableBody>
             {dentistList.map((dentist) => (
               <TableRow key={dentist.id}>
-                <TableCell>{dentist.id}</TableCell>
-                <TableCell>
+                <TableCell align="center">{dentist.id}</TableCell>
+                <TableCell align="center">
                   {
                     <img
                       style={{ width: '150px', height: '100px' }}
@@ -67,27 +67,27 @@ function DentistTable({ dentistList, onEdit, onRemove }) {
                     />
                   }
                 </TableCell>
-                <TableCell>{dentist.fullName}</TableCell>
-                <TableCell>{dentist.gender ? 'Nam' : 'Nữ'}</TableCell>
-                <TableCell>
+                <TableCell align="center">{dentist.fullName}</TableCell>
+                <TableCell align="center">{dentist.gender ? 'Nam' : 'Nữ'}</TableCell>
+                <TableCell align="center">
                   {dentist.communes.name +
                     ' ' +
                     dentist.communes.districts.name +
                     ' ' +
                     dentist.communes.districts.provinces.name}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="center">
                   <Button
                     size="small"
                     className={classes.edit}
                     color="primary"
                     onClick={() => onEdit?.(dentist)}
                   >
-                    Edit
+                    Sửa
                   </Button>
 
                   <Button size="small" color="secondary" onClick={() => handleRemoveClick(dentist)}>
-                    Remove
+                    Xóa
                   </Button>
                 </TableCell>
               </TableRow>

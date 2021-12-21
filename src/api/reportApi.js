@@ -37,5 +37,9 @@ const reportApi = {
     const url = 'report/topbacsi';
     return axiosInstance.get(url);
   },
+  reportStatus(status) {
+    const url = `report/status/${status}`;
+    return axiosInstance.get(url);
+  },
 };
 export default reportApi;

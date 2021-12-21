@@ -10,6 +10,7 @@ import { Box } from '@mui/system';
 import { districtAction } from 'app/districts/districtSlice';
 import ListPage from './pages/ListPage';
 import AddEditPage from './pages/AddEditPage';
+import AddVoucherPage from './pages/AddVoucherPage';
 
 function CustomerFeature(props) {
   const match = useRouteMatch();
@@ -30,8 +31,11 @@ function CustomerFeature(props) {
                     <Route path={match.path} exact>
                       <ListPage />
                     </Route>
-                    <Route path={`${match.path}/:customerId`}>
+                    <Route path={`${match.path}/:customerId`} exact>
                       <AddEditPage />
+                    </Route>
+                    <Route path={`${match.path}/voucher/:customerId`}>
+                      <AddVoucherPage />
                     </Route>
                   </Switch>
                 </Box>

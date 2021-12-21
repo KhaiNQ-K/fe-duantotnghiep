@@ -26,6 +26,7 @@ export function DateField({ label, name, control, disabled }) {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={disabled}
       />
       <FormHelperText>{error?.message}</FormHelperText>
     </FormControl>

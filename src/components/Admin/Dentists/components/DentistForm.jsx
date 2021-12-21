@@ -229,17 +229,6 @@ function DentistForm({ initialValues, onSubmit }) {
             {isSubmitting && <CircularProgress size={16} color="primary" />}
             &nbsp;Sửa
           </Button>
-          <Button
-            type="button"
-            variant="contained"
-            color="primary"
-            disabled={isSubmitting}
-            onClick={handleCancelEdit}
-          >
-            {isSubmitting && <CircularProgress size={16} color="primary" />}
-            <CloseIcon />
-            Huỷ
-          </Button>
         </Box>
       </form>
     </Box>

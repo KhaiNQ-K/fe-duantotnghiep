@@ -3,16 +3,16 @@
 // import logger from "redux-logger";
 // import rootReducer from "./rootReducer";
 
-import { configureStore } from '@reduxjs/toolkit';
-import provinceReducer from './provinceSlice';
-import { combineReducers } from 'redux';
 import createSagaMiddleware from '@redux-saga/core';
-import { rootSaga } from './rootSaga';
-import districtReducer from './districts/districtSlice';
-import communesReducer from './communes/communesSlice';
-import dentistReducer from 'components/Admin/Dentists/DentistSlice';
-import customerReducer from 'components/Admin/Customers/CustomerSlice';
+import { configureStore } from '@reduxjs/toolkit';
 import authReducer from 'components/Admin/Auth/authSlice';
+import customerReducer from 'components/Admin/Customers/CustomerSlice';
+import dentistReducer from 'components/Admin/Dentists/DentistSlice';
+import { combineReducers } from 'redux';
+import communesReducer from './communes/communesSlice';
+import districtReducer from './districts/districtSlice';
+import provinceReducer from './provinceSlice';
+import { rootSaga } from './rootSaga';
 // const sagaMiddleware = createSagaMiddleware();
 // const middlewares = [sagaMiddleware];
 

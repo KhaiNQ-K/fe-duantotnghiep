@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { InputField } from 'commons/FormFields/InputField';
+import { InputField, PasswordField } from 'commons/FormFields';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -51,7 +51,9 @@ function LoginPage({ onSubmit }) {
     resolver: yupResolver(schema),
   });
   const handleLoginSubmit = async (data) => {
-    if (Boolean(localStorage.getItem('access_token'))) return;
+    if (Boolean(localStorage.getItem('access_token'))) {
+      localStorage.clear();
+    }
     await onSubmit?.(data);
   };
   return (
@@ -97,7 +99,7 @@ function LoginPage({ onSubmit }) {
               sx={{ mt: 1 }}
             >
               <InputField control={control} label="Email Address" name="email" autoFocus />
-              <InputField control={control} name="password" label="Password" />
+              <PasswordField control={control} name="password" label="Password" />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"

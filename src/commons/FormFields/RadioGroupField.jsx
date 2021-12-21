@@ -25,6 +25,7 @@ export function RadioGroupField({ label, name, control, disabled, options }) {
             value={option.value}
             control={<Radio />}
             label={option.label}
+            disabled={disabled}
           />
         ))}
         <FormHelperText error>{error?.message}</FormHelperText>

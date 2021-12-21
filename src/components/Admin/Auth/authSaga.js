@@ -5,15 +5,14 @@ import { authActions } from './authSlice';
 
 function* handleLogin(payload) {
   try {
-    debugger;
-    console.log('handle login', payload);
     //yield delay(1000);
     //localStorage.setItem('access_token', 'fake_token');
     const res = yield call(authApi.login, payload);
     localStorage.setItem('access_token', res.data.token);
+
     if (Boolean(localStorage.getItem('access_token'))) {
       const response = yield call(authApi.getUserLogin);
-      console.log(response);
+      localStorage.setItem('role', response.data.rolesId);
       yield put(authActions.loginSuccess(response.data));
       // redirect to admin page
       yield history.push('/admin/dashboard');

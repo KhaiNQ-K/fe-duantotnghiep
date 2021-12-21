@@ -2,11 +2,13 @@ import { makeStyles } from '@material-ui/core';
 import { LinearProgress, Pagination, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import customerApi from 'api/customerApi';
+import voucherApi from 'api/voucherApi';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button } from 'reactstrap';
+import toastifyAlert from 'utils/toastify';
 import CustomerTable from '../components/CustomerTable';
 import { customerAction, selectCustomerList, selectCustomerLoading } from '../CustomerSlice';
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +48,6 @@ function ListPage(props) {
     history.push(`${match.url}/${customer.id}`);
   };
   const handleRemoveCustomer = async (dentist) => {
-    console.log(dentist);
     try {
       // Remove student API
       await customerApi.delete(dentist?.id || '');
@@ -61,12 +62,21 @@ function ListPage(props) {
       console.log('Failed to fetch customer', error);
     }
   };
+  const handleAddVoucherCustomer = (customer) => {
+    history.push(`${match.url}/voucher/${customer.id}`);
+  };
   const handlePageChange = (e, newPage) => {
     setPage(newPage);
   };
-  const handleChangeRowsPerPage = (e) => {
-    setRowsPerPage(e.target.value);
-    setPage(0);
+  const handleCickVoucher = () => {
+    customerList.forEach(async (customer) => {
+      const data = {
+        customerId: customer.id,
+        voucher: 5,
+      };
+      await voucherApi.sale(data);
+    });
+    toastifyAlert.success('Gửi voucher thành công!');
   };
   //get current dentist
   const indexOfLastCustomer = page * rowsPerPage;
@@ -78,6 +88,7 @@ function ListPage(props) {
 
       <Box className={classes.titleContainer}>
         <Typography variant="h4">Quản lý khách hàng</Typography>
+        <Button onClick={handleCickVoucher}>Gửi voucher cho ngày lễ</Button>
       </Box>
 
       {/* <Box mb={3}>
@@ -93,6 +104,7 @@ function ListPage(props) {
         customerList={currentCustomer}
         onEdit={handleEditCustomer}
         onRemove={handleRemoveCustomer}
+        onAddVoucher={handleAddVoucherCustomer}
       />
 
       <Box my={2} display="flex" justifyContent="center">

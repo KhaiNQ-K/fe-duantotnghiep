@@ -48,6 +48,7 @@ const schema = yup.object().shape({
 });
 
 function CustomerForm({ initialValues, onSubmit }) {
+  console.log(initialValues);
   let initialValue = {
     ...initialValues,
     communes: initialValues.communes.id,
@@ -221,12 +222,7 @@ function CustomerForm({ initialValues, onSubmit }) {
           >
             <SaveIcon />
             {isSubmitting && <CircularProgress size={16} color="primary" />}
-            &nbsp;Update
-          </Button>
-          <Button type="button" variant="contained" color="primary" disabled={isSubmitting}>
-            {isSubmitting && <CircularProgress size={16} color="primary" />}
-            <CloseIcon />
-            Cancel
+            &nbsp;Sửa
           </Button>
         </Box>
       </form>
