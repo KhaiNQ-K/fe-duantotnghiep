@@ -181,8 +181,7 @@ function Dashboard() {
   };
   const dashboardBooking = async () => {
     const res = await reportApi.reportBooking();
-    console.log(res.data);
-    console.log(res.data);
+    console.log(res);
     setBookingData([
       {
         status: 2,
@@ -242,6 +241,7 @@ function Dashboard() {
   const handleDetailBooking = async (item) => {
     setOpen(true);
     const res = await reportApi.reportStatus(item.status);
+    console.log(res.data);
     setCustomerBooking(res.data);
   };
   //order

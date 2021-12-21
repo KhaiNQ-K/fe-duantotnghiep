@@ -142,10 +142,7 @@ export default function ServiceList({ handleChange, listService, setListService 
                             <TableCell key={column.id} align={column.align}>
                               <img
                                 style={{ width: '100px', height: '100px' }}
-                                src={
-                                  'http://localhost:8080/api/v1/files/download/image?filename=' +
-                                  value
-                                }
+                                src={`${process.env.REACT_APP_API}/files/download/image?filename=${column}`}
                                 alt="image"
                               />
                             </TableCell>

@@ -125,8 +125,8 @@ export default function VoucherList({ handleChange, listVoucher, setListVoucher 
                             <TableCell key={column.id} align={column.align}>
                               <img
                                 src={
-                                  'http://localhost:8080/api/v1/files/download/image?filename=' +
-                                    column.format && typeof value === 'number'
+                                  `${process.env.REACT_APP_API}/files/download/image?filename=${column.format}` &&
+                                  typeof value === 'number'
                                     ? column.format(value)
                                     : value
                                 }
