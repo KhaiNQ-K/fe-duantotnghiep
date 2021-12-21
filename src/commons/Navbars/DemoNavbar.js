@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -16,21 +16,21 @@ import {
   InputGroupText,
   InputGroupAddon,
   Input,
-} from "reactstrap";
-import routerAdmin from "routesAdmin";
-
-
+} from 'reactstrap';
+import routerAdmin from 'routesAdmin';
+import { useDispatch } from 'react-redux';
+import { authActions } from 'components/Admin/Auth/authSlice';
 function DemoNavbar(props) {
   const location = useLocation();
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
-  const [color, setColor] = React.useState("transparent");
+  const [color, setColor] = React.useState('transparent');
   const sidebarToggle = React.useRef();
   const toggle = () => {
     if (isOpen) {
-      setColor("transparent");
+      setColor('transparent');
     } else {
-      setColor("white");
+      setColor('white');
     }
     setIsOpen(!isOpen);
   };
@@ -63,44 +63,40 @@ function DemoNavbar(props) {
     return name;
   };
   const openSidebar = () => {
-    document.documentElement.classList.toggle("nav-open");
-    sidebarToggle.current.classList.toggle("toggled");
-    console.log("open sidebar")
+    document.documentElement.classList.toggle('nav-open');
+    sidebarToggle.current.classList.toggle('toggled');
+    console.log('open sidebar');
   };
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   const updateColor = () => {
     if (window.innerWidth < 993 && isOpen) {
-      setColor("white");
+      setColor('white');
     } else {
-      setColor("transparent");
+      setColor('transparent');
     }
   };
   React.useEffect(() => {
-    window.addEventListener("resize", updateColor);
+    window.addEventListener('resize', updateColor);
   }, []);
   React.useEffect(() => {
-    if (
-      window.innerWidth < 993 &&
-      document.documentElement.className.indexOf("nav-open") !== -1
-    ) {
-      document.documentElement.classList.toggle("nav-open");
-      sidebarToggle.current.classList.toggle("toggled");
+    if (window.innerWidth < 993 && document.documentElement.className.indexOf('nav-open') !== -1) {
+      document.documentElement.classList.toggle('nav-open');
+      sidebarToggle.current.classList.toggle('toggled');
     }
   }, [location]);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+  };
   return (
     // add or remove classes depending if we are on full-screen-maps page or not
     <Navbar
-      color={
-        props.location.pathname.indexOf("full-screen-maps") !== -1
-          ? "white"
-          : color
-      }
+      color={props.location.pathname.indexOf('full-screen-maps') !== -1 ? 'white' : color}
       expand="lg"
       className={
-        props.location.pathname.indexOf("full-screen-maps") !== -1
-          ? "navbar-absolute fixed-top"
-          : "navbar-absolute fixed-top " +
-            (color === "transparent" ? "navbar-transparent " : "")
+        props.location.pathname.indexOf('full-screen-maps') !== -1
+          ? 'navbar-absolute fixed-top'
+          : 'navbar-absolute fixed-top ' + (color === 'transparent' ? 'navbar-transparent ' : '')
       }
     >
       <Container fluid>
@@ -130,45 +126,23 @@ function DemoNavbar(props) {
               <Input placeholder="Search..." />
               <InputGroupAddon addonType="append">
                 <InputGroupText>
-                  <i className="now-ui-icons ui-1_zoom-bold" style={{borderLeft: 'none'}} />
+                  <i className="now-ui-icons ui-1_zoom-bold" style={{ borderLeft: 'none' }} />
                 </InputGroupText>
               </InputGroupAddon>
             </InputGroup>
           </form>
           <Nav navbar>
-            <NavItem>
-              <Link to="#pablo" className="nav-link">
-                <i className="now-ui-icons media-2_sound-wave" />
-                <p>
-                  <span className="d-lg-none d-md-block">Stats</span>
-                </p>
-              </Link>
-            </NavItem>
-            <Dropdown
-              nav
-              isOpen={dropdownOpen}
-              toggle={(e) => dropdownToggle(e)}
-            >
+            <Dropdown nav isOpen={dropdownOpen} toggle={(e) => dropdownToggle(e)}>
               <DropdownToggle caret nav>
-                <i className="now-ui-icons location_world" />
+                <i className="now-ui-icons users_single-02" />
                 <p>
                   <span className="d-lg-none d-md-block">Some Actions</span>
                 </p>
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem tag="a">Action</DropdownItem>
-                <DropdownItem tag="a">Another Action</DropdownItem>
-                <DropdownItem tag="a">Something else here</DropdownItem>
+                <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
               </DropdownMenu>
             </Dropdown>
-            <NavItem>
-              <Link to="#pablo" className="nav-link">
-                <i className="now-ui-icons users_single-02" />
-                <p>
-                  <span className="d-lg-none d-md-block">Account</span>
-                </p>
-              </Link>
-            </NavItem>
           </Nav>
         </Collapse>
       </Container>

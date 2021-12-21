@@ -182,6 +182,7 @@ function Dashboard() {
   const dashboardBooking = async () => {
     const res = await reportApi.reportBooking();
     console.log(res.data);
+    console.log(res.data);
     setBookingData([
       {
         status: 2,
@@ -253,7 +254,7 @@ function Dashboard() {
   }, []);
   return (
     <>
-      <PanelHeader style={{ position: 'absolute' }} size="lg" />
+      <PanelHeader style={{ position: 'absolute' }} size="sm" />
 
       <div className="content">
         <Row style={{ marginBottom: '2rem' }}>

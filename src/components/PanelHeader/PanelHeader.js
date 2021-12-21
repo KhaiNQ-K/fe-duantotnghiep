@@ -15,15 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React from 'react';
 
 function PanelHeader(props) {
   return (
     <div
-      className={
-        "panel-header " +
-        (props.size !== undefined ? "panel-header-" + props.size : "")
-      }
+      className={'panel-header ' + (props.size !== undefined ? 'panel-header-' + props.size : '')}
     >
       {props.content}
     </div>

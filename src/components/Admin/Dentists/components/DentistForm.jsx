@@ -41,7 +41,6 @@ const schema = yup.object().shape({
     })
     .min(9, 'SĐT không được ít hơn 9 số')
     .max(11, 'SĐT không được vượt quá 11 số')
-
     .required('Bạn chưa nhập SĐT'),
   exp: yup.string().required('Bạn chưa nhập kinh nghiệm làm việc'),
   diachi: yup.string().required('Bạn chưa nhập số nhà'),
