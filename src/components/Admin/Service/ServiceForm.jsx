@@ -62,8 +62,9 @@ const ServiceForm = ({ handleChange, formData, setFormData, listService, setList
     console.log('data: => ', dataForm);
     if (selectedFile != null) {
       axiosInstance
-        .post('http://localhost:8080/api/v1/files/upload', imageUpload)
+        .post(`${process.env.REACT_APP_API}/files/upload`, imageUpload)
         .then((response) => {
+          console.log(response);
           if (response) {
             dataForm.image = response;
             if (formData.id == '' || formData.id == undefined) {
@@ -107,7 +108,7 @@ const ServiceForm = ({ handleChange, formData, setFormData, listService, setList
         console.log(error, error.response);
       });
   };
-
+  console.log(formData);
   const update = (dataForm) => {
     console.log('update');
     serviceApi
@@ -146,7 +147,7 @@ const ServiceForm = ({ handleChange, formData, setFormData, listService, setList
       });
     }
   };
-
+  console.log('my form data', formData);
   return (
     <CardBody>
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -257,7 +258,7 @@ const ServiceForm = ({ handleChange, formData, setFormData, listService, setList
               src={
                 selectedImage != null
                   ? URL.createObjectURL(selectedImage)
-                  : `http://localhost:8080/api/v1/files/download/image?filename=${formData.image}`
+                  : `${process.env.REACT_APP_API}/files/download/image?filename=${formData.image}`
               }
               style={{
                 border: '1px solid #dddddd',

@@ -136,13 +136,14 @@ export default function ServiceList({ handleChange, listService, setListService 
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                       {columns.map((column) => {
+                        console.log(column);
                         const value = row[column.id];
                         if (column.id == 'image') {
                           return (
                             <TableCell key={column.id} align={column.align}>
                               <img
                                 style={{ width: '100px', height: '100px' }}
-                                src={`${process.env.REACT_APP_API}/files/download/image?filename=${column}`}
+                                src={`${process.env.REACT_APP_API}/files/download/image?filename=${value}`}
                                 alt="image"
                               />
                             </TableCell>

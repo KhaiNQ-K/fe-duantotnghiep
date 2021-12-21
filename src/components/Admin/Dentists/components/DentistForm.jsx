@@ -98,12 +98,10 @@ function DentistForm({ initialValues, onSubmit }) {
       imageUpload.append('image', selectedFile);
 
       if (selectedFile != null) {
-        newFormState.image = selectedFile.name;
-        await fileApi.upload(imageUpload);
+        const res = await fileApi.upload(imageUpload);
+        newFormState.image = res;
         await onSubmit?.(newFormState);
-        console.log(newFormState);
       } else {
-        console.log(newFormState);
         await onSubmit?.(newFormState);
       }
     } catch (error) {
@@ -124,6 +122,7 @@ function DentistForm({ initialValues, onSubmit }) {
       });
     }
   };
+  console.log(initialValues);
   const handleCancelEdit = () => {
     history.push(match.url);
   };
@@ -151,7 +150,7 @@ function DentistForm({ initialValues, onSubmit }) {
                 src={
                   selectedImage != null
                     ? URL.createObjectURL(selectedImage)
-                    : `http://localhost:8080/api/v1/files/download/image?filename=${initialValues.image}`
+                    : `${process.env.REACT_APP_API}/files/download/image?filename=${initialValues.image}`
                 }
                 style={{
                   border: '1px solid #dddddd',

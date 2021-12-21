@@ -20,13 +20,7 @@ import { Col, Row } from 'reactstrap';
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
-  fullName: yup.string().required('Bạn chưa nhập họ và tên bác sĩ'),
-  cccd: yup
-    .string()
-    .matches(/^[0-9\-\+]{9,12}$/i, { message: 'CCCD/CMT không đúng định dạng' })
-    .min(9, 'CCCD/CMT không được ít hơn 9 số')
-    .max(12, 'CCCD/CMT không được vượt quá 12 số')
-    .required('Bạn chưa nhập CCCD/CMT.'),
+  fullname: yup.string().required('Bạn chưa nhập họ và tên bác sĩ'),
   birthday: yup.date().required('Bạn chưa nhập ngày sinh'),
   gender: yup
     .boolean()
@@ -41,14 +35,12 @@ const schema = yup.object().shape({
     })
     .min(9, 'SĐT không được ít hơn 9 số')
     .max(11, 'SĐT không được vượt quá 11 số')
-
     .required('Bạn chưa nhập SĐT'),
-  exp: yup.string().required('Bạn chưa nhập kinh nghiệm làm việc'),
+  story: yup.string().required('Bạn chưa nhập tieu su'),
   diachi: yup.string().required('Bạn chưa nhập số nhà'),
 });
 
 function CustomerForm({ initialValues, onSubmit }) {
-  console.log(initialValues);
   let initialValue = {
     ...initialValues,
     communes: initialValues.communes.id,
@@ -90,6 +82,7 @@ function CustomerForm({ initialValues, onSubmit }) {
   };
   const handleFormSubmit = async (formState) => {
     const newFormState = { ...formState, communes: { id: formState.communes } };
+    console.log(newFormState);
     try {
       // Clear previous submission error
       setError('');
@@ -97,12 +90,10 @@ function CustomerForm({ initialValues, onSubmit }) {
       imageUpload.append('image', selectedFile);
 
       if (selectedFile != null) {
-        newFormState.image = selectedFile.name;
-        await fileApi.upload(imageUpload);
+        const res = await fileApi.upload(imageUpload);
+        newFormState.image = res;
         await onSubmit?.(newFormState);
-        console.log(newFormState);
       } else {
-        console.log(newFormState);
         await onSubmit?.(newFormState);
       }
     } catch (error) {
@@ -147,7 +138,7 @@ function CustomerForm({ initialValues, onSubmit }) {
                 src={
                   selectedImage != null
                     ? URL.createObjectURL(selectedImage)
-                    : `http://localhost:8080/api/v1/files/download/image?filename=${initialValues.image}`
+                    : `${process.env.REACT_APP_API}/files/download/image?filename=${initialValues.image}`
                 }
                 style={{
                   border: '1px solid #dddddd',
@@ -207,7 +198,7 @@ function CustomerForm({ initialValues, onSubmit }) {
                 { label: 'Female', value: false },
               ]}
             />
-            <InputField name="exp" control={control} label="Tiểu sử" multiline />
+            <InputField name="story" control={control} label="Tiểu sử" multiline />
           </Col>
           {error && <Alert severity="error">{error}</Alert>}
         </Row>
@@ -217,8 +208,8 @@ function CustomerForm({ initialValues, onSubmit }) {
             type="submit"
             variant="contained"
             color="primary"
-            disabled={isSubmitting}
             style={{ marginRight: '3px' }}
+            disabled={isSubmitting}
           >
             <SaveIcon />
             {isSubmitting && <CircularProgress size={16} color="primary" />}
